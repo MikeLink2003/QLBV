@@ -1,0 +1,840 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    min-height: 100vh;
+    background-color: #f8f9fa; /* Màu nền nhẹ nhàng */
+}
+
+a {
+    text-decoration: none;
+    color: #007bff; /* Màu xanh dương */
+}
+
+a:hover {
+    color: #0056b3; /* Màu xanh đậm khi hover */
+}
+
+/* Header styles */
+.header {
+    background-color: #5792d2; /* Bright Blue */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    color: white; /* Text color */
+    font-size: 18px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.header .menu-icon {
+    font-size: 30px;
+    cursor: pointer;
+    padding-right: 20px;
+    transition: transform 0.3s ease;
+}
+.header .nav #Hoten{
+    color: #FFF;
+}
+.header img{
+    width: 120px;
+    height: 40px;
+    margin-bottom: 10px;
+}
+/* Sidebar styles */
+.sidebar {
+    width: 260px;
+    height: 100vh;
+    background-color: #e9ecef; /* Màu xám nhạt */
+    color: #343a40; /* Màu chữ tối */
+    position: fixed;
+    top: 0;
+    left: 0; 
+    transition: all 0.4s ease;
+    z-index: 999;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    overflow-y: auto; /* Thêm thuộc tính này để hiển thị thanh cuộn */
+}
+
+/* Tùy chỉnh thanh cuộn */
+.sidebar::-webkit-scrollbar {
+    width: 6px; /* Độ rộng của thanh cuộn */
+}
+
+.sidebar::-webkit-scrollbar-track {
+    background: #e9ecef; /* Màu nền của track thanh cuộn */
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+    background-color: #CCC; /* Màu thanh cuộn */
+    border-radius: 10px; /* Bo tròn thanh cuộn */
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+    background-color: #495057; /* Màu thanh cuộn khi hover */
+}
+
+
+.sidebar .logo {
+    padding: 20px;
+    text-align: center;
+    background-color: #28a745; /* Màu xanh lá cây */
+    color: white;
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar li {
+    padding: 20px;
+    border-bottom: 1px solid #ced4da; /* Đường viền màu xám nhạt */
+    cursor: pointer;
+}
+
+.sidebar li:hover {
+    padding-left: 10px;
+    background-color: #d1e7dd; /* Màu nền khi hover */
+}
+
+.sidebar li span {
+    margin-left: 10px;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+/* Main content */
+.main-content {
+    margin-left: 250px;
+    padding: 80px 20px;
+    transition: margin-left 0.4s ease;
+    background-color: #f0f2f5; /* Màu nền nhẹ nhàng */
+    flex: 1;
+}
+
+/* Dropdown styles */
+.dropdown-menu {
+    display: none;
+    margin-top: -5px;
+    position: absolute;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+/* Sidebar Icons */
+.sidebar-icon {
+    font-size: 20px;
+    width: 30px;
+    text-align: center;
+    color: #000;
+}
+
+.barry-text {
+    color: #343a40; /* Màu chữ tối */
+    font-size: 24px; /* Kích thước chữ */
+    font-weight: bold; /* Chữ đậm */
+    margin-left: 10px; /* Khoảng cách giữa biểu tượng menu và chữ */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Tạo bóng cho chữ */
+    letter-spacing: 1px; /* Tăng khoảng cách giữa các chữ cái */
+    transition: color 0.3s ease; /* Thêm hiệu ứng chuyển màu */
+}
+
+.barry-text:hover {
+    color: #b3c5cd; /* Màu chữ thay đổi khi hover */
+}
+/* Menu con */
+.menu-toggle{
+    color: #000;
+}
+.submenu {
+    list-style-type: none; /* Xóa dấu chấm đầu dòng */
+    padding-left: 0; /* Xóa khoảng cách bên trái */
+    display: none; /* Ẩn menu con theo mặc định */
+    margin-top: 10px; /* Khoảng cách trên menu con */
+    /* Khoảng cách bên trái để căn chỉnh menu con */
+}
+
+.submenu.active {
+    display: block; /* Hiện menu con khi có lớp active */
+}
+
+.submenu li {
+    padding: 10px; /* Khoảng cách cho từng mục trong menu con */
+    border-bottom: 1px solid #34495e; /* Đường viền dưới các mục */
+    cursor: pointer; /* Thay đổi con trỏ khi hover */
+    color: #000; /* Màu chữ cho menu con */
+    margin-left: 30px;
+}
+
+.submenu li:hover {
+    background-color: #16a085; /* Màu nền khi hover vào mục menu con */
+}
+.arrow {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin-left: .255em;
+    vertical-align: middle; /* Căn giữa với văn bản */
+    content: "";
+    border-top: .3em solid; /* Màu sắc của mũi tên */
+    border-right: .3em solid transparent;
+    border-bottom: 0;
+    border-left: .3em solid transparent;
+}
+/* Quản lý nhân sự */
+.actions {
+    display: flex;
+    align-items: center; 
+    justify-content: space-between; 
+    margin-bottom: 10px;
+}
+
+.search-container {
+    display: flex; 
+    align-items: center; 
+}
+
+.input-container {
+    position: relative;
+}
+
+.search-icon {
+    position: absolute; /* Đặt biểu tượng ở vị trí tuyệt đối */
+    right: 10px;
+    top: 50%; /* Căn giữa theo chiều dọc */
+    transform: translateY(-50%); /* Căn giữa theo chiều dọc */
+    font-size: 18px; /* Kích thước của biểu tượng */
+    color: #666; /* Màu sắc của biểu tượng */
+    pointer-events: none; /* Không cho phép tương tác với biểu tượng */
+}
+
+.search-input {
+    width: 250px;
+    padding: 8px ; 
+    border: 1px solid #ccc;
+    border-radius: 4px; 
+}
+
+.add-btn {
+    padding: 8px 16px;
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.add-btn:hover {
+    background-color: #218838; 
+}
+
+.employee-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.employee-table th, .employee-table td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+.employee-table th {
+    background-color: #CCC;
+    color: #000;
+}
+
+.edit-btn, .delete-btn {
+    padding: 6px 12px;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.fa-edit, .fa-trash-alt{
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.edit-btn {
+    background-color: #ffc107;
+    margin-right: 5px;
+}
+
+.edit-btn:hover {
+    background-color: #e0a800;
+}
+
+.delete-btn {
+    background-color: #dc3545;
+}
+
+.delete-btn:hover {
+    background-color: #c82333;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+}
+
+.page-btn {
+    padding: 8px 12px;
+    margin: 0 5px;
+    border: 1px solid #007bff;
+    color: #007bff;
+    border-radius: 4px;
+    cursor: pointer;
+}
+/* KHoa */
+
+/* Hóa đơn */
+.hoadon-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+.hoadon-table th, table td {
+    padding: 15px;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+.hoadon-table th {
+    background-color: #CCC;
+    color: black;
+    font-weight: 700;
+}
+.hoadon-table td {
+    color: black;
+}
+
+.btn-pay {
+    width: 150px;
+    text-align: center;
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+.btn-pay:hover {
+    background-color: #2980b9;
+}
+/* Hóa đơn thanh toán */
+.header-title {
+    text-align: center;
+    color: black;
+   
+}
+.section-title {
+    color: black;
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.table-cost {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+.table-cost th, .table-cost td {
+    padding: 12px;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+.table-cost th {
+    background-color: #3498db;
+    color: #fff;
+}
+.table-cost td {
+    color: #34495e;
+}
+.total-amount, .payable-amount {
+    font-size: 18px;
+    color: #2c3e50;
+    margin: 10px 0;
+}
+.payable-amount span {
+    color: #e74c3c;
+}
+.btn-payment {
+    display: block;
+    padding: 12px;
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    font-size: 16px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    margin-top: 20px;
+    text-align: center;
+    width: 100%;
+}
+.btn-payment:hover {
+    background-color: #2980b9;
+}
+/* Cá nhân */
+.profile-card, .account-info, .personal-info {
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.profile-card {
+    text-align: center;
+    height: 100%;
+}
+.profile-card img {
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+}
+.account-info h5, .personal-info h5 {
+    font-weight: bold;
+}
+.account-info .form-control, .personal-info {
+    margin-bottom: 10px;
+}
+.form-group {
+    position: relative;
+}
+.form-icon {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+/* Quản lý phòng khám */
+
+.schedule-table {
+    background-color: #FFF;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+.schedule-table th, .schedule-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+.schedule-table th {
+    background-color: #f2f2f2;
+}
+.schedule-table td {
+    height: 100px;
+    vertical-align: top;
+}
+.morning, .afternoon {
+    background-color: #ffffe0;
+    font-weight: bold;
+}
+.event {
+    background-color: #28a745;
+    color: white;
+    padding: 5px;
+    margin: 5px 0;
+    border-radius: 5px;
+}
+.QLPK-btn {
+    cursor: pointer;
+    color: white;
+    margin-left: 5px;
+}
+.header-date {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.header-date .btn-group {
+    display: flex;
+    gap: 5px;
+}
+.btn-group button {
+    background-color: #fff; 
+    border-color: #6c757d;
+}
+.header-date .date-picker {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.header-date .date-picker input {
+    padding: 5px;
+}
+.select-doctor {
+    width: 100%;
+}
+.date-picker input,
+#clinicSelect {
+    border-radius: 5px; /* Bo góc */
+    padding: 5px;
+    border: 1px solid #ced4da;
+    outline: none;
+
+}
+
+/* Danh sách giường */
+.card {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+.card-title {
+    font-size: 1rem;
+    font-weight: bold;
+}
+.card-text {
+    font-size: 0.9rem;
+}
+.status {
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+.bed-icon {
+    font-size: 3rem;
+}
+.in-use {
+    color: red;
+}
+.reserved {
+    color: orange;
+}
+.empty {
+    color: blue;
+}
+/* Đăng ký lịch làm việc */
+.dkl-form {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.dkl-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+.dkl-table th,
+.dkl-table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+.dkl-table th {
+    background-color: #f2f2f2;
+}
+
+.dkl-button {
+    margin-top: 10px;
+    background-color: #5cb85c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-left: 90%;
+    width: 100px;
+}
+
+.dkl-button:hover {
+    background-color: #4cae4c;
+}
+/* Duyệt yêu cầu nghỉ phép */
+.leave-request-table {
+    width: 80%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+}
+
+.leave-request-table th,
+.leave-request-table td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+.leave-request-table th {
+    background-color: #4CAF50;
+    color: white;
+    font-weight: bold;
+}
+
+.leave-request-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.leave-request-table tr:hover {
+    background-color: #ddd;
+}
+
+.leave-request-link {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.leave-request-link:hover {
+    color: #0056b3;
+    text-decoration: underline;
+}
+
+/* modal */
+#rejectModal {
+    width: 50%;
+    border-radius: 8px;
+}
+
+#rejectModal h3 {
+    margin-top: 0;
+}
+
+#rejectModal textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    resize: vertical;
+}
+
+#rejectModal input[type="submit"] {
+    background-color: #d9534f;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+#rejectModal input[type="submit"]:hover {
+    background-color: #c9302c;
+}
+
+#rejectModal button {
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 16px;
+    margin-left: 10px;
+}
+
+#rejectModal button:hover {
+    background-color: #5a6268;
+}
+
+/* CSS cho overlay */
+#overlay {
+    background-color: rgba(0, 0, 0, 0.6);
+}
+.header-lpk {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.header-lpk img {
+    margin-bottom: 10px;
+}
+
+.header-lpk h1 {
+    color: #007BFF;
+    margin: 10px 0;
+}
+
+.header-lpk h2 {
+    color: #333;
+    margin: 10px 0;
+}
+
+.info, .results {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 30px;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.info td, .results th, .results td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.results th {
+    background-color: #007BFF;
+    color: white;
+}
+
+.info input[type="text"], .info input[type="date"],
+.results input[type="text"], .results select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+    color: #333;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+.results select {
+    padding: 8px;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+}
+
+.lpk-button {
+    background-color: #007BFF;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.lpk-button:hover {
+    background-color: #0056b3;
+}
+
+.note {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #555;
+    font-style: italic;
+}
+
+.signature {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.signature p {
+    font-size: 16px;
+    font-weight: bold;
+}
+.diagnosis-textarea {
+    width: 100%;
+    height: 70px;  /* Chiều cao ban đầu */
+    resize: vertical;  /* Cho phép thay đổi chiều cao */
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+    color: #333;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+/* Xem chi tiết bác sĩ ngoại trú */
+
+.ttcnbn-card { 
+    
+    border: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+.ttcnbn-table {
+    width: 100%; 
+    table-layout: fixed; 
+    word-wrap: break-word; 
+}
+
+.ttcnbn-table thead { 
+    background-color: #0056b3;
+    color: white;
+}
+.ttcnbn-table td, .ttcnbn-table th { 
+    vertical-align: middle;
+    padding: 10px;
+}
+.ttcnbn-badge-status { 
+    font-size: 0.9rem;
+    padding: 5px 10px;
+    border-radius: 12px;
+}
+.ttcnbn-info-section { 
+    
+    margin-bottom: 30px;
+}
+.ttcnbn-info-card { 
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+}
+.ttcnbn-card-header { 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+.ttcnbn-card-header button { 
+    border-radius: 50px;
+    padding: 5px 15px;
+    font-size: 0.9rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+.ttcnbn-card-body { 
+    padding: 20px;
+}
+.ttcnbn-card-body p { 
+    margin: 10px 0;
+    font-size: 1rem;
+    color: #343a40;
+}
+.ttcnbn-badge.bg-success { 
+    background-color: #28a745 !important;
+}
+.ttcnbn-badge.bg-warning { 
+    background-color: #ffc107 !important;
+    color: #212529;
+}
+.ttcnbn-badge.bg-danger { 
+    background-color: #dc3545 !important;
+}
+.ttcnbn-card-header.bg-primary { 
+    background-color: #0056b3 !important;
+}
+.ttcnbn-card-header.bg-success { 
+    background-color: #28a745 !important;
+}
